@@ -1,0 +1,1 @@
+/home/audris/new_changes_lunar/lunar_rover/devel/.private/catkin_tools_prebuild/env.sh

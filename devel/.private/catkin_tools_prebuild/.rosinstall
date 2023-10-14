@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/audris/new_changes_lunar/lunar_rover_space/devel/.private/catkin_tools_prebuild/setup.sh

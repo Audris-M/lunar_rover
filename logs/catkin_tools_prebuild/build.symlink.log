@@ -1,0 +1,12 @@
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./env.sh
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./setup.zsh
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./local_setup.zsh
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./local_setup.bash
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./local_setup.sh
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./setup.bash
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./setup.sh
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./_setup_util.py
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/./cmake.lock
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/lib/pkgconfig/catkin_tools_prebuild.pc
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig.cmake
+Symlinking /home/audris/new_changes_lunar/lunar_rover_space/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig-version.cmake

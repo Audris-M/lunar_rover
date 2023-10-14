@@ -1,0 +1,6 @@
+devel_space: /home/audris/new_changes_lunar/lunar_rover_space/devel
+install: false
+install_space: /home/audris/new_changes_lunar/lunar_rover_space/install
+profile: default
+source_space: /home/audris/new_changes_lunar/lunar_rover_space/src
+workspace: /home/audris/new_changes_lunar/lunar_rover_space
