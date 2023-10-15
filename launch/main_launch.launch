@@ -1,18 +1,18 @@
 <launch>
   <!-- Launch the ROSbag node -->
-  <node name="rosbag_player" pkg="rosbag" type="play" args="-q -i $(find new_changes_lunar)/lunar_rover_space/my_imu_data.bag --loop" required="true">
+  <node name="rosbag_player" pkg="rosbag" type="play" args="-q -i $(find lunar_rover)/my_imu_data.bag --loop" required="true">
     <param name="pause" value="false"/>
   </node>
 
   <!-- Launch the first Python script (reader_for_imu_data.py) -->
-  <node name="reader_for_imu_data" pkg="new_changes_lunar" type="reader_for_imu_data.py" output="screen" required="true">
+  <node name="reader_for_imu_data" pkg="lunar_roverV2" type="reader_for_imu_data.py" output="screen" required="true">
   </node>
 
   <!-- Launch the second Python script (visualization_code.py) -->
-  <node name="visualization_code" pkg="new_changes_lunar" type="visualization_code.py" output="screen" required="true">
+  <node name="visualization_code" pkg="lunar_roverV2" type="visualization_code.py" output="screen" required="true">
   </node>
 
   <!-- Launch RViz with the specified settings -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find new_changes_lunar)/lunar_rover_space)/config/settings.rviz" required="true">
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find lunar_roverV2)/lunar_rover/config/settings.rviz" required="true">
   </node>
 </launch>

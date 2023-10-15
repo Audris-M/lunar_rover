@@ -7,7 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/audris/new_changes_lunar/lunar_rover_space/devel/.private/catkin_tools_prebuild:$CMAKE_PREFIX_PATH"
-export PWD='/home/audris/new_changes_lunar/lunar_rover_space/build/catkin_tools_prebuild'
-export ROSLISP_PACKAGE_DIRECTORIES='/home/audris/new_changes_lunar/lunar_rover_space/devel/.private/catkin_tools_prebuild/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/audris/new_changes_lunar/lunar_rover_space/build/catkin_tools_prebuild:$ROS_PACKAGE_PATH"
+export CMAKE_PREFIX_PATH="/home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/devel/.private/catkin_tools_prebuild:$CMAKE_PREFIX_PATH"
+export PWD='/home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/build/catkin_tools_prebuild'
+export ROSLISP_PACKAGE_DIRECTORIES="/home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/devel/.private/catkin_tools_prebuild/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
+export ROS_PACKAGE_PATH="/home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/build/catkin_tools_prebuild:$ROS_PACKAGE_PATH"

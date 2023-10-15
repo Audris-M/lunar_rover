@@ -1,1 +1,1 @@
-/home/audris/new_changes_lunar/lunar_rover/devel/.private/catkin_tools_prebuild/setup.zsh
+/home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/devel/.private/catkin_tools_prebuild/setup.zsh

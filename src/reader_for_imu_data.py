@@ -1,5 +1,131 @@
-#!/usr/bin/env python
+# import rospy
+# from sensor_msgs.msg import Imu
+# from tf.transformations import euler_from_quaternion, quaternion_multiply
+# import tf2_ros
+# from tf2_msgs.msg import TFMessage
+# from geometry_msgs.msg import TransformStamped
+# import numpy as np  # Add numpy library for angle conversion
 
+# # Initialize the orientation quaternion as an identity quaternion
+# current_orientation = np.array([0.0, 0.0, 0.0, 1.0])
+
+# def imu_callback(data):
+#     global current_orientation
+
+#     # Extract angular velocity data
+#     angular_velocity = data.angular_velocity
+
+#     # Convert angular velocity from degrees per second to radians per second
+#     angular_velocity_rad = np.deg2rad([angular_velocity.x, angular_velocity.y, angular_velocity.z])
+
+#     # Create a quaternion from angular velocity in radians per second
+#     delta_orientation = np.array([angular_velocity_rad[0], angular_velocity_rad[1], angular_velocity_rad[2], 0.0])
+
+#     # Normalize the delta quaternion
+#     norm = np.linalg.norm(delta_orientation)
+#     delta_orientation /= norm
+
+#     # Update the current orientation by multiplying with the incremental rotation
+#     current_orientation = quaternion_multiply(current_orientation, delta_orientation)
+
+#     # Create and broadcast the TF transformation
+#     transform_broadcaster = tf2_ros.TransformBroadcaster()
+#     transform_stamped = TransformStamped()
+
+#     transform_stamped.header.stamp = rospy.Time.now()
+#     transform_stamped.header.frame_id = "base_link"  # Parent frame
+#     transform_stamped.child_frame_id = "orientation_frame"  # Child frame
+
+#     # Set the translation to the identity (no translation)
+#     transform_stamped.transform.translation.x = 0.0
+#     transform_stamped.transform.translation.y = 0.0
+#     transform_stamped.transform.translation.z = 0.0
+
+#     # Set the rotation from the orientation
+#     transform_stamped.transform.rotation.x = current_orientation[0]
+#     transform_stamped.transform.rotation.y = current_orientation[1]
+#     transform_stamped.transform.rotation.z = current_orientation[2]
+#     transform_stamped.transform.rotation.w = current_orientation[3]
+
+#     transform_broadcaster.sendTransform(transform_stamped)
+
+# if __name__ == '__main__':
+#     rospy.init_node('imu_subscriber')
+
+#     # Subscribe to the quaternion data topic
+#     quaternion_sub = rospy.Subscriber('/imu/data', Imu, imu_callback)
+
+#     rospy.spin()
+
+
+
+
+
+
+# #!/usr/bin/env python
+
+# import rospy
+# from sensor_msgs.msg import Imu
+# from geometry_msgs.msg import Quaternion
+# from tf.transformations import quaternion_from_euler, euler_from_quaternion
+
+# # Initialize global variables for Euler angles
+# roll = 0.0
+# pitch = 0.0
+# yaw = 0.0
+
+# def imu_callback(data, imu_corrected_publisher):
+#     global roll, pitch, yaw  # Declare as global to access the global variables
+
+#     # Extract angular velocity data
+#     angular_velocity = data.angular_velocity
+
+#     # Convert angular velocities to radians per second
+#     gyro_x = angular_velocity.x / 131.0 * 0.0174
+#     gyro_y = angular_velocity.y / 131.0 * 0.0174
+#     gyro_z = angular_velocity.z / 131.0 * 0.0174
+
+#     # Integrate angular velocity to calculate Euler angles
+#     roll += gyro_x * data.header.stamp.to_sec()
+#     pitch += gyro_y * data.header.stamp.to_sec()
+#     yaw += gyro_z * data.header.stamp.to_sec()
+
+#     # Convert Euler angles to quaternion
+#     orientation_quaternion = quaternion_from_euler(roll, pitch, yaw)
+
+#     # Create a Quaternion message to store the corrected orientation
+#     quaternion_msg = Quaternion()
+#     quaternion_msg.x = orientation_quaternion[0]
+#     quaternion_msg.y = orientation_quaternion[1]
+#     quaternion_msg.z = orientation_quaternion[2]
+#     quaternion_msg.w = orientation_quaternion[3]
+
+#     # Publish the corrected orientation Quaternion on the /imu/imu_corrected topic
+#     imu_corrected_publisher.publish(quaternion_msg)
+
+# def imu_subscriber():
+#     rospy.init_node('imu_subscriber', anonymous=True)
+
+#     # Create a publisher for the corrected data
+#     imu_corrected_publisher = rospy.Publisher('/imu/imu_corrected', Quaternion, queue_size=10)
+    
+#     rospy.Subscriber('/imu/data', Imu, imu_callback, callback_args=imu_corrected_publisher)
+    
+#     rospy.spin()
+
+# if __name__ == '__main__':
+#     try:
+#         imu_subscriber()
+#     except rospy.ROSInterruptException:
+#         pass
+
+
+
+
+
+
+#!/usr/bin/env python
+#currently best working code
 import rospy
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Quaternion

@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/usr/src/googletest")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/audris/new_changes_lunar/lunar_rover_space/build/catkin_tools_prebuild")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/build/catkin_tools_prebuild")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

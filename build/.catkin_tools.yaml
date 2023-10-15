@@ -1,6 +1,6 @@
-devel_space: /home/audris/new_changes_lunar/lunar_rover_space/devel
+devel_space: /home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/devel
 install: false
-install_space: /home/audris/new_changes_lunar/lunar_rover_space/install
+install_space: /home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/install
 profile: default
-source_space: /home/audris/new_changes_lunar/lunar_rover_space/src
-workspace: /home/audris/new_changes_lunar/lunar_rover_space
+source_space: /home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover/src
+workspace: /home/audris/Desktop/lunar_projectV2/lunar_roverV2/src/lunar_rover
