@@ -1,3 +1,129 @@
+#!/usr/bin/env python
+#currently best working code, but it uses angular velocities directly, however the 2nd code is trying to integrate -
+# - angular velocities over time using Euler integration
+import rospy
+from sensor_msgs.msg import Imu
+from geometry_msgs.msg import Quaternion
+from tf.transformations import quaternion_from_euler
+
+def imu_callback(data, imu_corrected_publisher):
+    # Extract angular velocity data
+    angular_velocity = data.angular_velocity
+
+    # Create a Quaternion message to store the corrected orientation
+    quaternion_msg = Quaternion()
+
+    # Compute corrected angular velocity values and store them in the Quaternion message
+    gyro_x = angular_velocity.x / 131.0
+    gyro_y = angular_velocity.y / 131.0
+    gyro_z = angular_velocity.z / 131.0
+
+    quaternion_msg.x = gyro_x * 0.0174 * 1000
+    quaternion_msg.y = gyro_y * 0.0174 * 1000
+    quaternion_msg.z = gyro_z * 0.0174 * 1000
+
+    # You can compute and set the orientation quaternion here, assuming you have the Euler angles
+    # For example, if you have roll, pitch, and yaw angles
+    roll = angular_velocity.x  # Replace with your actual roll angle
+    pitch = angular_velocity.y  # Replace with your actual pitch angle
+    yaw = angular_velocity.z  # Replace with your actual yaw angle
+
+    orientation_quaternion = quaternion_from_euler(roll, pitch, yaw)
+    quaternion_msg.x = orientation_quaternion[0]
+    quaternion_msg.y = orientation_quaternion[1]
+    quaternion_msg.z = orientation_quaternion[2]
+    quaternion_msg.w = orientation_quaternion[3]
+
+    # Publish the corrected orientation Quaternion on the /imu/imu_corrected topic
+    imu_corrected_publisher.publish(quaternion_msg)
+    
+def imu_subscriber():
+    rospy.init_node('imu_subscriber', anonymous=True)
+
+    # Create a publisher for the corrected data
+    imu_corrected_publisher = rospy.Publisher('/imu/imu_corrected', Quaternion, queue_size=10)
+    
+    rospy.Subscriber('/imu/data', Imu, imu_callback, callback_args=imu_corrected_publisher)
+    
+    rospy.spin()
+
+if __name__ == '__main__':
+    try:
+        imu_subscriber()
+    except rospy.ROSInterruptException:
+        pass
+
+
+
+# #Euler tranformation of angular velocities over time
+# import rospy
+# from sensor_msgs.msg import Imu
+# from geometry_msgs.msg import Quaternion
+# from tf.transformations import quaternion_multiply, quaternion_from_euler
+
+# # Define initial orientation
+# current_orientation = quaternion_from_euler(0, 0, 0)
+# last_update_time = None
+
+# def imu_callback(data, imu_corrected_publisher):
+#     global current_orientation, last_update_time
+
+#     # Initialize the time if it hasn't been initialized yet
+#     if last_update_time is None:
+#         last_update_time = rospy.Time.now()
+#         return
+
+#     # Extract angular velocity data
+#     angular_velocity = data.angular_velocity
+
+#     # Calculate the time interval (dt) since the last update
+#     current_time = rospy.Time.now()
+#     dt = (current_time - last_update_time).to_sec()
+#     last_update_time = current_time
+
+#     # Compute the change in orientation using Euler integration and the time interval (dt)
+#     delta_q = quaternion_from_euler(angular_velocity.x * dt, angular_velocity.y * dt, angular_velocity.z * dt)
+
+#     # Update the current orientation
+#     current_orientation = quaternion_multiply(current_orientation, delta_q)
+
+#     # Publish the corrected orientation Quaternion
+#     imu_corrected_publisher.publish(Quaternion(*current_orientation))
+
+# def imu_subscriber():
+#     rospy.init_node('imu_subscriber', anonymous=True)
+
+#     # Create a publisher for the corrected data
+#     imu_corrected_publisher = rospy.Publisher('/imu/imu_corrected', Quaternion, queue_size=10)
+
+#     rospy.Subscriber('/imu/data', Imu, imu_callback, callback_args=imu_corrected_publisher)
+
+#     rospy.spin()
+
+# if __name__ == '__main__':
+#     try:
+#         imu_subscriber()
+#     except rospy.ROSInterruptException:
+#         pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#other tries below
+
+
+
+
 # import rospy
 # from sensor_msgs.msg import Imu
 # from tf.transformations import euler_from_quaternion, quaternion_multiply
@@ -124,59 +250,6 @@
 
 
 
-#!/usr/bin/env python
-#currently best working code
-import rospy
-from sensor_msgs.msg import Imu
-from geometry_msgs.msg import Quaternion
-from tf.transformations import quaternion_from_euler
-
-def imu_callback(data, imu_corrected_publisher):
-    # Extract angular velocity data
-    angular_velocity = data.angular_velocity
-
-    # Create a Quaternion message to store the corrected orientation
-    quaternion_msg = Quaternion()
-
-    # Compute corrected angular velocity values and store them in the Quaternion message
-    gyro_x = angular_velocity.x / 131.0
-    gyro_y = angular_velocity.y / 131.0
-    gyro_z = angular_velocity.z / 131.0
-
-    quaternion_msg.x = gyro_x * 0.0174 * 1000
-    quaternion_msg.y = gyro_y * 0.0174 * 1000
-    quaternion_msg.z = gyro_z * 0.0174 * 1000
-
-    # You can compute and set the orientation quaternion here, assuming you have the Euler angles
-    # For example, if you have roll, pitch, and yaw angles
-    roll = angular_velocity.x  # Replace with your actual roll angle
-    pitch = angular_velocity.y  # Replace with your actual pitch angle
-    yaw = angular_velocity.z  # Replace with your actual yaw angle
-
-    orientation_quaternion = quaternion_from_euler(roll, pitch, yaw)
-    quaternion_msg.x = orientation_quaternion[0]
-    quaternion_msg.y = orientation_quaternion[1]
-    quaternion_msg.z = orientation_quaternion[2]
-    quaternion_msg.w = orientation_quaternion[3]
-
-    # Publish the corrected orientation Quaternion on the /imu/imu_corrected topic
-    imu_corrected_publisher.publish(quaternion_msg)
-    
-def imu_subscriber():
-    rospy.init_node('imu_subscriber', anonymous=True)
-
-    # Create a publisher for the corrected data
-    imu_corrected_publisher = rospy.Publisher('/imu/imu_corrected', Quaternion, queue_size=10)
-    
-    rospy.Subscriber('/imu/data', Imu, imu_callback, callback_args=imu_corrected_publisher)
-    
-    rospy.spin()
-
-if __name__ == '__main__':
-    try:
-        imu_subscriber()
-    except rospy.ROSInterruptException:
-        pass
 
 
 
